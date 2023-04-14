@@ -9,13 +9,13 @@ while(du_bist_mutig) {
 	print("Welche Tuer oeffnest du?")
 	const tuer = input("1, 2 oder 3?");
 	const tuer_nummer = int(tuer);
-	if((tuer_nummer < geistertuer) | (tuer_nummer > geistertuer)) {
+	if(tuer_nummer == geistertuer) {
+		print("GEIST")
+		du_bist_mutig = false
+	} else {
 		print("Kein Geist!")
 		print("Du bist ein Zimmer weiter.")
 		score = score + 1
-	} else {
-		print("GEIST")
-		du_bist_mutig = false
 	}
 }
 
