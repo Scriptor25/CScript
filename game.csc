@@ -1,7 +1,7 @@
 # Field Size #
 const FIELD = {
-    WIDTH: 21,
-    HEIGHT: 21,
+    WIDTH: 15,
+    HEIGHT: 15,
 };
 
 # Player Position #
@@ -18,6 +18,9 @@ const Apple = {
 
 # Score #
 let score = 0;
+
+# FPS counter #
+let fps = 0;
 
 # Countdown #
 let countdown = 10;
@@ -36,8 +39,8 @@ fn make_bar (width) {
 
 # Draws the game world #
 fn draw () {
-	# Clear the console #
-	clear()
+	let screen = [];
+	let idx = 0;
 	
 	# Print the score #
 	let f = 0;
@@ -50,16 +53,26 @@ fn draw () {
             let countdown_length = 9;
 			if (countdown < 10)  { countdown_length = 7 } else {
 			if (countdown < 100) { countdown_length = 8 } }
-            
-            const ws = FIELD.WIDTH * 3 -  9 - score_length;
-            const wc = FIELD.WIDTH * 3 - 13 - countdown_length;
 			
-			print("- Score: "     + score     + " " + make_bar(ws))
-            print("- Countdown: " + countdown + " " + make_bar(wc))
+			let fps_length = 9;
+			if (fps < 10)  { fps_length = 7 } else {
+			if (fps < 100) { fps_length = 8 } }
+            
+            const ws = FIELD.WIDTH * 3 -  9 -     score_length;
+            const wc = FIELD.WIDTH * 3 - 13 - countdown_length;
+            const wf = FIELD.WIDTH * 3 -  7 -       fps_length;
+			
+			screen[idx] = "- Score: "     + score     + " " + make_bar(ws)
+			idx = idx + 1
+            screen[idx] = "- Countdown: " + countdown + " " + make_bar(wc)
+			idx = idx + 1
+            screen[idx] = "- FPS: "       + fps       + " " + make_bar(wf)
 		} else {
-			print(make_bar(FIELD.WIDTH * 3 + 2))
+			screen[idx] = make_bar(FIELD.WIDTH * 3 + 2)
 		}
+		
 		f = f + 1
+		idx = idx + 1
 	}
 	
 	# Iterate through the field and        #
@@ -77,28 +90,37 @@ fn draw () {
 			
 			c = c + 1
 		}
-		print("-" + field + "-")
+		screen[idx] = "-" + field + "-"
+		
 		r = r + 1
+		idx = idx + 1
 	}
 	
-	print(make_bar(FIELD.WIDTH * 3 + 2))
+	screen[idx] = make_bar(FIELD.WIDTH * 3 + 2)
+	
+	# Redraw the console #
+	# clear() #
+	cprint(screen)
 }
 
 # Uses the user input to move the player #
 fn user_input () {
-	let user = input("");
+	const state_w = key("w");
+	const state_s = key("s");
+	const state_a = key("a");
+	const state_d = key("d");
 	
 	# Multiple characters account for faster input #
-	if (user == "w" | user == "ww" | user == "www") { Player.y = Player.y - 1 } else { # Move up    #
-	if (user == "s" | user == "ss" | user == "sss") { Player.y = Player.y + 1 } else { # Move down  #
-	if (user == "a" | user == "aa" | user == "aaa") { Player.x = Player.x - 1 } else { # Move left  #
-	if (user == "d" | user == "dd" | user == "ddd") { Player.x = Player.x + 1 } } } }  # Move right #
+	if (state_w.down) { Player.y = Player.y - 1 } # Move up    #
+	if (state_s.down) { Player.y = Player.y + 1 } # Move down  #
+	if (state_a.down) { Player.x = Player.x - 1 } # Move left  #
+	if (state_d.down) { Player.x = Player.x + 1 } # Move right #
 }
 
 fn check_player () {
 	if (Player.x < 0) { Player.x = 0 } else {
 	if (Player.x > FIELD.WIDTH - 1) { Player.x = FIELD.WIDTH - 1 } }
-	if (Player.y < 0) { y = 0 } else {
+	if (Player.y < 0) { Player.y = 0 } else {
 	if (Player.y > FIELD.HEIGHT - 1) { Player.y = FIELD.HEIGHT - 1 } }
 }
 
@@ -129,10 +151,13 @@ fn reset() {
 	prev_time = time()
 }
 
-fn advance_countdown () {
+fn update_time () {
     const delta = time() - prev_time;
     prev_time = time()
-    countdown = countdown - delta / 1000
+	
+	fps = 1 / (delta / 1000)
+	
+    countdown = countdown - (delta / 1000)
 	
 	if (countdown <= 0) {
 		clear()
@@ -140,16 +165,23 @@ fn advance_countdown () {
 		input("Press enter to try again")
 		reset()
 	}
+	
+	# Limit the fps to 10 so the player doesnt go brrrrt #
+	
+	const sleep_time = 100 - delta;
+	
+	if (sleep_time > 0) { sleep(sleep_time) }
 }
 
-# The main game loop   #
-# draw the game        #
-# wait for input       #
-# check for collisions #
+# The main game loop       #
+# draw the game            #
+# wait for input           #
+# check for collisions     #
+# update fps and countdown #
 while (true) {
 	draw()
 	user_input()
 	check_player()
 	check_apple()
-    advance_countdown()
+    update_time()
 }
