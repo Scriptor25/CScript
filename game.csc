@@ -6,14 +6,14 @@ const FIELD = {
 
 # Player Position #
 const Player = {
-    x: int(FIELD.WIDTH  / 2),
-    y: int(FIELD.HEIGHT / 2),
+    x: sys.int(FIELD.WIDTH  / 2),
+    y: sys.int(FIELD.HEIGHT / 2),
 };
 
 # Apple Position #
 const Apple = {
-    x: randint(0, FIELD.WIDTH  - 1),
-    y: randint(0, FIELD.HEIGHT - 1),
+    x: sys.randint(0, FIELD.WIDTH  - 1),
+    y: sys.randint(0, FIELD.HEIGHT - 1),
 };
 
 # Score #
@@ -24,7 +24,7 @@ let fps = 0;
 
 # Countdown #
 let countdown = 10;
-let prev_time = time();
+let prev_time = sys.time();
 
 fn make_bar (width) {
 	let n = 0;
@@ -100,15 +100,15 @@ fn draw () {
 	
 	# Redraw the console #
 	# clear() #
-	cprint(screen)
+	sys.cprint(screen)
 }
 
 # Uses the user input to move the player #
 fn user_input () {
-	const state_w = key("w");
-	const state_s = key("s");
-	const state_a = key("a");
-	const state_d = key("d");
+	const state_w = sys.key("w");
+	const state_s = sys.key("s");
+	const state_a = sys.key("a");
+	const state_d = sys.key("d");
 	
 	# Multiple characters account for faster input #
 	if (state_w.down) { Player.y = Player.y - 1 } # Move up    #
@@ -130,8 +130,8 @@ fn check_player () {
 fn check_apple () {
 	if (Player.x == Apple.x & Player.y == Apple.y) {
 		while (Player.x == Apple.x & Player.y == Apple.y) {
-			Apple.x = randint(0, FIELD.WIDTH  - 1)
-			Apple.y = randint(0, FIELD.HEIGHT - 1)
+			Apple.x = sys.randint(0, FIELD.WIDTH  - 1)
+			Apple.y = sys.randint(0, FIELD.HEIGHT - 1)
 		}
 		score = score + 1
         countdown = 10
@@ -139,30 +139,31 @@ fn check_apple () {
 }
 
 fn reset() {
-	Player.x = int(FIELD.WIDTH  / 2)
-	Player.y = int(FIELD.HEIGHT / 2)
+	Player.x = sys.int(FIELD.WIDTH  / 2)
+	Player.y = sys.int(FIELD.HEIGHT / 2)
 	
-	Apple.x = randint(0, FIELD.WIDTH  - 1)
-    Apple.y = randint(0, FIELD.HEIGHT - 1)
+	Apple.x = sys.randint(0, FIELD.WIDTH  - 1)
+    Apple.y = sys.randint(0, FIELD.HEIGHT - 1)
 	
 	score = 0
 	
 	countdown = 10
-	prev_time = time()
+	prev_time = sys.time()
 }
 
 fn update_time () {
-    const delta = time() - prev_time;
-    prev_time = time()
+	const now = sys.time();
+    const delta = now - prev_time;
+    prev_time = now
 	
 	fps = 1 / (delta / 1000)
 	
     countdown = countdown - (delta / 1000)
 	
 	if (countdown <= 0) {
-		clear()
-		print("Time's over! Your Score: " + score)
-		input("Press enter to try again")
+		sys.clear()
+		sys.print("Time's over! Your Score: " + score)
+		sys.input("Press enter to try again")
 		reset()
 	}
 	
@@ -170,7 +171,7 @@ fn update_time () {
 	
 	const sleep_time = 100 - delta;
 	
-	if (sleep_time > 0) { sleep(sleep_time) }
+	if (sleep_time > 0) { sys.sleep(sleep_time) }
 }
 
 # The main game loop       #

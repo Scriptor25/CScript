@@ -10,13 +10,13 @@
             <Keywords name="Numbers, prefix2"></Keywords>
             <Keywords name="Numbers, extras1"></Keywords>
             <Keywords name="Numbers, extras2"></Keywords>
-            <Keywords name="Numbers, suffix1"></Keywords>
-            <Keywords name="Numbers, suffix2"></Keywords>
+            <Keywords name="Numbers, suffix1">;</Keywords>
+            <Keywords name="Numbers, suffix2">,</Keywords>
             <Keywords name="Numbers, range"></Keywords>
-            <Keywords name="Operators1">+ - * / &amp; | == != ! &lt; &gt; &lt;= &gt;=</Keywords>
-            <Keywords name="Operators2"></Keywords>
+            <Keywords name="Operators1"></Keywords>
+            <Keywords name="Operators2">+ - * / &amp; | == != ! &lt; &gt; &lt;= &gt;=</Keywords>
             <Keywords name="Folders in code1, open">{ ( [</Keywords>
-            <Keywords name="Folders in code1, middle">; . , :</Keywords>
+            <Keywords name="Folders in code1, middle"></Keywords>
             <Keywords name="Folders in code1, close">) } ]</Keywords>
             <Keywords name="Folders in code2, open"></Keywords>
             <Keywords name="Folders in code2, middle"></Keywords>
@@ -24,7 +24,7 @@
             <Keywords name="Folders in comment, open"></Keywords>
             <Keywords name="Folders in comment, middle"></Keywords>
             <Keywords name="Folders in comment, close"></Keywords>
-            <Keywords name="Keywords1">const let fn</Keywords>
+            <Keywords name="Keywords1">const let fn namespace</Keywords>
             <Keywords name="Keywords2">if else while</Keywords>
             <Keywords name="Keywords3">true false null</Keywords>
             <Keywords name="Keywords4"></Keywords>

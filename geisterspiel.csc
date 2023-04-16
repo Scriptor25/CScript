@@ -1,23 +1,26 @@
-print("Geisterspiel")
+sys.clear()
+sys.print("Geisterspiel")
 let du_bist_mutig = true;
 let score = 0;
 
 while(du_bist_mutig) {
-	const geistertuer = randint(1, 3);
-	print("Vor dir sind drei Tueren.")
-	print("Hinter einer ist ein Geist.")
-	print("Welche Tuer oeffnest du?")
-	const tuer = input("1, 2 oder 3?");
-	const tuer_nummer = int(tuer);
+	const geistertuer = sys.randint(1, 3);
+	sys.print("Vor dir sind drei Tueren.")
+	sys.print("Hinter einer ist ein Geist.")
+	sys.print("Welche Tuer oeffnest du?")
+	const tuer = sys.input("1, 2 oder 3?");
+	const tuer_nummer = sys.int(tuer);
 	if(tuer_nummer == geistertuer) {
-		print("GEIST")
+		sys.clear()
+		sys.print("GEIST")
 		du_bist_mutig = false
 	} else {
-		print("Kein Geist!")
-		print("Du bist ein Zimmer weiter.")
+		sys.clear()
+		sys.print("Kein Geist!")
+		sys.print("Du bist ein Zimmer weiter.")
 		score = score + 1
 	}
 }
 
-print("Lauf weg!")
-print("Spiel vorbei! Dein Score: " + score)
+sys.print("Lauf weg!")
+sys.print("Spiel vorbei! Dein Score: " + score)
