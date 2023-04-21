@@ -3,7 +3,7 @@
 ## Setup
 
 Clone or download the repo and open the VS solution file (.sln) 
-in VisualStudio 2022 or later.
+in VisualStudio (2022 was used for dev, but it says v10 or later).
 
 ## Run
 
