@@ -2,7 +2,11 @@
 
 ## Setup
 
-Clone or download the repo and use the CScript-Installer for installation
+Clone or download the repo and open the VS project file 
+in VisualStudio 2022 or later.
 
 ## Run
 
+Download the latest released installer and execute it. 
+On installation you can select if you want to also install 
+the source within the installation folder.
