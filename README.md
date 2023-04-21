@@ -2,7 +2,7 @@
 
 ## Setup
 
-Clone or download the repo and open the VS project file 
+Clone or download the repo and open the VS solution file (.sln) 
 in VisualStudio 2022 or later.
 
 ## Run
